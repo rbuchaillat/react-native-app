@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Image, View, StyleSheet } from 'react-native';
-import { CheckBox } from 'react-native-elements'
+import { RadioButton } from 'react-native-paper';
 
 import imageLogo from '../assets/images/logo.png';
 import { Button } from './common/Button';
@@ -32,26 +32,9 @@ export const RegisterScreen = () => {
         setPassword({password: data});
     };
 
-    const handleCheckedChange = (data) => {
-        setIsChecked(isChecked => isChecked.set(event.target.name, event.target.checked));
-    };
-
-    const handleLoginPress = () => {
+    const handleRegisterPress = () => {
         console.log('Login button pressed : ', firstName, lastName, email, password, isChecked);
     };
-
-    const checkboxes = [
-        {
-            name: 'recrutier',
-            key: 'recrutier',
-            label: 'Recruteur'
-        },
-        {
-            name: 'candidate',
-            key: 'candidate',
-            label: 'Candidat'
-        }
-    ]
 
     return (
         <View style={styles.container}>
@@ -77,12 +60,19 @@ export const RegisterScreen = () => {
                     onChangeText={handlePasswordChange}
                     placeholder={Strings.PASSWORD_PLACEHOLDER}
                 />
-                <Form.Group inline>
-                    <label>Gender</label>
-                    <Form.Radio label="Male" checked={gender === 'Male'} value="Male" onClick={() => setGender('Male')} />
-                    <Form.Radio label="Female" checked={gender === 'Female'} value="Female" onClick={() => setGender('Female')} />
-                </Form.Group>
-                <Button label={Strings.LOGIN} onPress={handleLoginPress} />
+                <View>
+                    <RadioButton
+                        value="recruiter"
+                        status={isChecked === 'recruiter' ? 'checked' : 'unchecked'}
+                        onPress={() => { setIsChecked('recruiter') }}
+                    />
+                    <RadioButton
+                        value="candidate"
+                        status={isChecked === 'candidate' ? 'checked' : 'unchecked'}
+                        onPress={() => { setIsChecked('candidate') }}
+                    />
+                </View>
+                <Button label={Strings.LOGIN} onPress={handleRegisterPress} />
             </View>
         </View>
     )
