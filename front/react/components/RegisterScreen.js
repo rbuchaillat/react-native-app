@@ -1,20 +1,27 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
-import {Image, View, StyleSheet, Text} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 
-import imageLogo from '../assets/images/logo.png';
 import {Button} from './common/Button';
 import {FormTextInput} from './common/FormTextInput';
-import * as Color from '../config/colors';
-import * as Strings from '../config/strings';
+import {WHITE} from '../config/colors';
+import {
+  REGISTER,
+  LASTNAME_PLACEHOLDER,
+  FIRSTNAME_PLACEHOLDER,
+  EMAIL_PLACEHOLDER,
+  PASSWORD_PLACEHOLDER,
+  RECRUITER,
+  CANDIDATE,
+} from '../config/strings';
 
 export const RegisterScreen = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isChecked, setIsChecked] = useState(new Map());
+  const [type, setType] = useState('');
 
   const handleFirstNameChange = (data) => {
     setFirstName({firstName: data});
@@ -39,53 +46,53 @@ export const RegisterScreen = () => {
       lastName,
       email,
       password,
-      isChecked,
+      type,
     );
   };
 
   return (
     <View style={styles.container}>
-      <Image source={imageLogo} style={styles.logo} />
       <View style={styles.form}>
+        <Text style={styles.text}>{REGISTER}</Text>
         <FormTextInput
           value={lastName}
-          onChangeText={handleFirstNameChange}
-          placeholder={Strings.LASTNAME_PLACEHOLDER}
+          onChangeText={handleLastNameChange}
+          placeholder={LASTNAME_PLACEHOLDER}
         />
         <FormTextInput
           value={firstName}
-          onChangeText={handleLastNameChange}
-          placeholder={Strings.FIRSTNAME_PLACEHOLDER}
+          onChangeText={handleFirstNameChange}
+          placeholder={FIRSTNAME_PLACEHOLDER}
         />
         <FormTextInput
           value={email}
           onChangeText={handleEmailChange}
-          placeholder={Strings.EMAIL_PLACEHOLDER}
+          placeholder={EMAIL_PLACEHOLDER}
         />
         <FormTextInput
           value={password}
           onChangeText={handlePasswordChange}
-          placeholder={Strings.PASSWORD_PLACEHOLDER}
+          placeholder={PASSWORD_PLACEHOLDER}
         />
-        <View>
-          <Text>Recruteur</Text>
+        <View style={styles.radioButton}>
+          <Text>{RECRUITER}</Text>
           <RadioButton
             value="recruiter"
-            status={isChecked === 'recruiter' ? 'checked' : 'unchecked'}
+            status={type === 'recruiter' ? 'checked' : 'unchecked'}
             onPress={() => {
-              setIsChecked('recruiter');
+              setType('recruiter');
             }}
           />
-          <Text>Candidat</Text>
+          <Text>{CANDIDATE}</Text>
           <RadioButton
             value="candidate"
-            status={isChecked === 'candidate' ? 'checked' : 'unchecked'}
+            status={type === 'candidate' ? 'checked' : 'unchecked'}
             onPress={() => {
-              setIsChecked('candidate');
+              setType('candidate');
             }}
           />
         </View>
-        <Button label={Strings.REGISTER} onPress={handleRegisterPress} />
+        <Button label={REGISTER} onPress={handleRegisterPress} />
       </View>
     </View>
   );
@@ -94,19 +101,23 @@ export const RegisterScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.WHITE,
+    backgroundColor: WHITE,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  logo: {
-    flex: 1,
-    width: '30%',
-    resizeMode: 'contain',
-    alignSelf: 'center',
+  text: {
+    textAlign: 'center',
+    paddingBottom: 50,
+    fontSize: 25,
   },
   form: {
     flex: 1,
     justifyContent: 'center',
     width: '80%',
+  },
+  radioButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 20,
   },
 });
