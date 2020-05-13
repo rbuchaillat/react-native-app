@@ -85,7 +85,7 @@ export const RegisterScreen = () => {
             }}
           />
         </View>
-        <Button label={Strings.LOGIN} onPress={handleRegisterPress} />
+        <Button label={Strings.REGISTER} onPress={handleRegisterPress} />
       </View>
     </View>
   );

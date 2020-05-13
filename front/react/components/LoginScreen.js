@@ -10,7 +10,7 @@ import {
   PASSWORD_PLACEHOLDER,
   LOGIN,
 } from '../config/strings';
-import imageLogo from '../assets/images/logo.png';
+import imageLogo from '../assets/images/logo-colors.png';
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     flex: 1,
-    width: '100%',
+    width: '30%',
     resizeMode: 'contain',
     alignSelf: 'center',
   },
