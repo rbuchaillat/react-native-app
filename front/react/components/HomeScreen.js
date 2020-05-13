@@ -4,6 +4,7 @@ import {Image, View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 
 import {HOME_YELLOW, LOGIN_BLUE, REGISTER_RED} from '../config/colors';
+import {LOGIN, REGISTER} from '../config/strings';
 import imageLogo from '../assets/images/logo-white.png';
 
 export const HomeScreen = ({navigation}) => {
@@ -16,13 +17,13 @@ export const HomeScreen = ({navigation}) => {
         style={styles.buttonLogin}
         mode="contained"
         onPress={() => navigation.navigate('Login')}>
-        Connexion
+        {LOGIN}
       </Button>
       <Button
         style={styles.buttonRegister}
         mode="contained"
         onPress={() => navigation.navigate('Register')}>
-        S'inscrire
+        {REGISTER}
       </Button>
     </View>
   );
