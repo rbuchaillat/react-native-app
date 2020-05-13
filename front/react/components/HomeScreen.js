@@ -3,12 +3,12 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 
-export const PageExample = ({navigation}) => {
+export const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.root}>
-      <Text>Example page</Text>
-      <Button mode="contained" onPress={() => navigation.goBack()}>
-        Go back
+      <Text>Home</Text>
+      <Button mode="contained" onPress={() => navigation.navigate('Login')}>
+        Login
       </Button>
     </View>
   );
