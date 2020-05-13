@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet, Text } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 
 import imageLogo from '../assets/images/logo.png';
@@ -61,11 +61,13 @@ export const RegisterScreen = () => {
                     placeholder={Strings.PASSWORD_PLACEHOLDER}
                 />
                 <View>
+                    <Text>Recruteur</Text>
                     <RadioButton
                         value="recruiter"
                         status={isChecked === 'recruiter' ? 'checked' : 'unchecked'}
                         onPress={() => { setIsChecked('recruiter') }}
                     />
+                    <Text>Candidat</Text>
                     <RadioButton
                         value="candidate"
                         status={isChecked === 'candidate' ? 'checked' : 'unchecked'}
