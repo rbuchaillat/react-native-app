@@ -9,6 +9,9 @@ export const HomeScreen = ({navigation}) => {
       <Text>Home</Text>
       <Button mode="contained" onPress={() => navigation.navigate('Login')}>
         Login
+      </Button>      
+      <Button mode="contained" onPress={() => navigation.navigate('Register')}>
+        Register
       </Button>
     </View>
   );
