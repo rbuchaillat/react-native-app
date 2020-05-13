@@ -73,6 +73,7 @@ export const RegisterScreen = () => {
           value={password}
           onChangeText={handlePasswordChange}
           placeholder={PASSWORD_PLACEHOLDER}
+          secureTextEntry={true}
         />
         <View style={styles.radioButton}>
           <Text>{RECRUITER}</Text>
