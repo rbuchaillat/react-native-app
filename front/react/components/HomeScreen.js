@@ -1,14 +1,28 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Image, View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
+
+import {HOME_YELLOW, LOGIN_BLUE, REGISTER_RED} from '../config/colors';
+import imageLogo from '../assets/images/logo-white.png';
 
 export const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.root}>
-      <Text>Home</Text>
-      <Button mode="contained" onPress={() => navigation.navigate('Login')}>
-        Login
+      <View style={styles.main}>
+        <Image source={imageLogo} style={styles.logo} />
+      </View>
+      <Button
+        style={styles.buttonLogin}
+        mode="contained"
+        onPress={() => navigation.navigate('Login')}>
+        Connexion
+      </Button>
+      <Button
+        style={styles.buttonRegister}
+        mode="contained"
+        onPress={() => navigation.navigate('Register')}>
+        S'inscrire
       </Button>
     </View>
   );
@@ -17,7 +31,32 @@ export const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    alignItems: 'stretch',
+  },
+  main: {
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: HOME_YELLOW,
+  },
+  logo: {
+    flex: 1,
+    width: '30%',
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
+  buttonLogin: {
+    flexShrink: 1,
+    justifyContent: 'center',
+    height: 70,
+    borderRadius: 0,
+    backgroundColor: LOGIN_BLUE,
+  },
+  buttonRegister: {
+    flexShrink: 1,
+    justifyContent: 'center',
+    height: 70,
+    borderRadius: 0,
+    backgroundColor: REGISTER_RED,
   },
 });
