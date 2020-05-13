@@ -49,10 +49,6 @@ export function DrawerContent(props) {
             label="Home"
             onPress={() => navigation.navigate('Home')}
           />
-          <DrawerItem
-            label="Example page"
-            onPress={() => navigation.navigate('PageExample')}
-          />
         </Drawer.Section>
         <Drawer.Section title="Preferences">
           <TouchableRipple onPress={() => {}}>
