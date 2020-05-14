@@ -42,7 +42,7 @@ export const HomeScreen = ({navigation}) => {
               color: BLACK,
             },
           ]}>
-          Hello world!
+          Gestion de recrutement
         </Text>
         <Text style={styles.text}>
           Bienvenue sur notre application de recrutement!
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    padding: 10,
+    padding: 2
   },
   buttonAuth: {
     justifyContent: 'center',
