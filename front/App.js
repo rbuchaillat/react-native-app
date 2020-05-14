@@ -1,61 +1,30 @@
 /* eslint-disable prettier/prettier */
-import React, { useState, useMemo, useEffect } from 'react';
-import { StatusBar, StyleSheet, View, ActivityIndicator } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StatusBar} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 
-import { RootNavigator } from './react/routes';
-import { RootNavigatorr } from './react/routes2';
-import { AuthContext } from './react/components/context/context'
+import {Routes} from './react/routes';
+import {SessionContext, getSessionStorage} from './react/context/session';
 
 const App = () => {
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ userToken, setUserToken ] = useState(null);
-
-  const authContext = useMemo(() => ({
-    login: () => {
-      setUserToken('fgkj');
-      setIsLoading(false);
-    },
-    signOut: () => {
-      setUserToken(null);
-      setIsLoading(false);
-    },
-    register: () => {
-      setUserToken('fgkj');
-      setIsLoading(false)
-    },
-  }), [])
+  const [session, setSession] = useState(getSessionStorage());
+  const contextValue = {session, setSession};
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    setSession(getSessionStorage);
   }, []);
 
-  if ( isLoading ) {
-    return (
-      <View style={styles.loader}>
-        <ActivityIndicator size="large" />
-      </View>
-    )
-  }
-
   return (
-        <AuthContext.Provider value={authContext}>
-          <NavigationContainer>
-          { userToken !== null ? <RootNavigatorr /> : <RootNavigator /> }
-          </NavigationContainer>
-        </AuthContext.Provider>
+    <SessionContext.Provider value={contextValue}>
+      <StatusBar barStyle="dark-content" />
+      <PaperProvider>
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
+      </PaperProvider>
+    </SessionContext.Provider>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-})
