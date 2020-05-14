@@ -5,13 +5,13 @@ import {List} from 'react-native-paper';
 
 import {HOME_YELLOW, DODGER_BLUE} from '../../config/colors';
 
-export const ListOfferScreen = () => {
+export const ListOfferScreen = ({navigation}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fakeData = [
-      {name: 'TEST', descriptionOffer: 'test test test'},
-      {name: 'TEST', descriptionOffer: 'test test test'},
+      {id: 1, name: 'TEST', descriptionOffer: 'test test test'},
+      {id: 2, name: 'TEST', descriptionOffer: 'test test test'},
     ];
     setData(fakeData);
   }, []);
@@ -28,6 +28,11 @@ export const ListOfferScreen = () => {
             left={(props) => (
               <List.Icon {...props} icon="firebase" color={DODGER_BLUE} />
             )}
+            onPress={() =>
+              navigation.navigate('ShowOffer', {
+                itemId: value.id,
+              })
+            }
           />
         ))
       ) : (
