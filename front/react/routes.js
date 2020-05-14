@@ -19,6 +19,7 @@ export const Routes = () => {
   const [auth, setAuth] = useState(false);
 
   useEffect(() => {
+    console.log('ok');
     const setData = async () => {
       const sessionContext = await getSessionStorage();
       setAuth(sessionContext.auth);
