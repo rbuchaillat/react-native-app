@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React, { useState, useContext } from 'react';
 import {Image, View, StyleSheet} from 'react-native';
 
 import {FormTextInput} from './common/FormTextInput';
@@ -12,9 +12,13 @@ import {
 } from '../config/strings';
 import imageLogo from '../assets/images/logo-colors.png';
 
+import { AuthContext } from './context/context';
+
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { login } = useContext(AuthContext);
 
   const handleEmailChange = (data) => {
     setEmail({email: data});
@@ -22,10 +26,6 @@ export const LoginScreen = () => {
 
   const handlePasswordChange = (data) => {
     setPassword({password: data});
-  };
-
-  const handleLoginPress = () => {
-    console.log('Login button pressed : ', email, password);
   };
 
   return (
@@ -42,7 +42,10 @@ export const LoginScreen = () => {
           onChangeText={handlePasswordChange}
           placeholder={PASSWORD_PLACEHOLDER}
         />
-        <Button label={LOGIN} onPress={handleLoginPress} />
+        <Button
+          label={LOGIN}
+          onPress={() => login()}
+        />
       </View>
     </View>
   );
