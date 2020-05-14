@@ -16,60 +16,74 @@ import {
 export function DrawerContent(props) {
   const {navigation} = props;
 
+  const signOut = () => {
+    console.log('signOut');
+  };
+
   return (
-    <DrawerContentScrollView {...props}>
-      <View style={styles.drawerContent}>
-        <View style={styles.userInfoSection}>
-          <Avatar.Image
-            source={{
-              uri:
-                'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
-            }}
-            size={50}
-          />
-          <Title style={styles.title}>Dawid Urbaniak</Title>
-          <Caption style={styles.caption}>@trensik</Caption>
-          <View style={styles.row}>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                202
-              </Paragraph>
-              <Caption style={styles.caption}>Following</Caption>
-            </View>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                159
-              </Paragraph>
-              <Caption style={styles.caption}>Followers</Caption>
+    <View style={{flex: 1}}>
+      <DrawerContentScrollView {...props}>
+        <View style={styles.drawerContent}>
+          <View style={styles.userInfoSection}>
+            <Avatar.Image
+              source={{
+                uri:
+                  'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
+              }}
+              size={50}
+            />
+            <Title style={styles.title}>Dawid Urbaniak</Title>
+            <Caption style={styles.caption}>@trensik</Caption>
+            <View style={styles.row}>
+              <View style={styles.section}>
+                <Paragraph style={[styles.paragraph, styles.caption]}>
+                  202
+                </Paragraph>
+                <Caption style={styles.caption}>Following</Caption>
+              </View>
+              <View style={styles.section}>
+                <Paragraph style={[styles.paragraph, styles.caption]}>
+                  159
+                </Paragraph>
+                <Caption style={styles.caption}>Followers</Caption>
+              </View>
             </View>
           </View>
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              label="Home"
+              onPress={() => navigation.navigate('Home')}
+            />
+          </Drawer.Section>
+          <Drawer.Section title="Preferences">
+            <TouchableRipple onPress={() => {}}>
+              <View style={styles.preference}>
+                <Text>Dark Theme</Text>
+                <View pointerEvents="none">
+                  <Switch value={false} />
+                </View>
+              </View>
+            </TouchableRipple>
+            <TouchableRipple onPress={() => {}}>
+              <View style={styles.preference}>
+                <Text>RTL</Text>
+                <View pointerEvents="none">
+                  <Switch value={false} />
+                </View>
+              </View>
+            </TouchableRipple>
+          </Drawer.Section>
         </View>
-        <Drawer.Section style={styles.drawerSection}>
-          <DrawerItem
-            label="Home"
-            onPress={() => navigation.navigate('Home')}
-          />
-        </Drawer.Section>
-        <Drawer.Section title="Preferences">
-          <TouchableRipple onPress={() => {}}>
-            <View style={styles.preference}>
-              <Text>Dark Theme</Text>
-              <View pointerEvents="none">
-                <Switch value={false} />
-              </View>
-            </View>
-          </TouchableRipple>
-          <TouchableRipple onPress={() => {}}>
-            <View style={styles.preference}>
-              <Text>RTL</Text>
-              <View pointerEvents="none">
-                <Switch value={false} />
-              </View>
-            </View>
-          </TouchableRipple>
-        </Drawer.Section>
-      </View>
-    </DrawerContentScrollView>
+      </DrawerContentScrollView>
+      <Drawer.Section style={styles.bottomDrawerSection}>
+        <DrawerItem
+          label="Sign Out"
+          onPress={() => {
+            signOut();
+          }}
+        />
+      </Drawer.Section>
+    </View>
   );
 }
 
@@ -104,6 +118,11 @@ const styles = StyleSheet.create({
   },
   drawerSection: {
     marginTop: 15,
+  },
+  bottomDrawerSection: {
+    marginBottom: 15,
+    borderTopColor: '#f4f4f4',
+    borderTopWidth: 1,
   },
   preference: {
     flexDirection: 'row',

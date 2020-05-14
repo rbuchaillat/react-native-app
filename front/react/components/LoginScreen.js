@@ -11,8 +11,11 @@ import {
   LOGIN,
 } from '../config/strings';
 import imageLogo from '../assets/images/logo-colors.png';
+import {getSessionStorage} from '../context/session';
 
 export const LoginScreen = () => {
+  console.log(getSessionStorage());
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,8 +27,8 @@ export const LoginScreen = () => {
     setPassword({password: data});
   };
 
-  const handleLoginPress = () => {
-    console.log('Login button pressed : ', email, password);
+  const handlePress = () => {
+    console.log('press login');
   };
 
   return (
@@ -42,7 +45,7 @@ export const LoginScreen = () => {
           onChangeText={handlePasswordChange}
           placeholder={PASSWORD_PLACEHOLDER}
         />
-        <Button label={LOGIN} onPress={handleLoginPress} />
+        <Button label={LOGIN} onPress={() => handlePress} />
       </View>
     </View>
   );

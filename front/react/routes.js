@@ -9,7 +9,7 @@ import {RegisterScreen} from './components/RegisterScreen';
 
 const Drawer = createDrawerNavigator();
 
-export const RootNavigator = () => {
+export const Routes = () => {
   return (
     <Drawer.Navigator
       drawerContent={({navigation}) => (
