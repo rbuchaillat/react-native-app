@@ -2,16 +2,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {DrawerItem, DrawerContentScrollView} from '@react-navigation/drawer';
-import {
-  Avatar,
-  Title,
-  Caption,
-  Paragraph,
-  Drawer,
-  Text,
-  TouchableRipple,
-  Switch,
-} from 'react-native-paper';
+import {Avatar, Title, Caption, Paragraph, Drawer} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const DrawerContent = (props) => {
@@ -52,27 +43,13 @@ export const DrawerContent = (props) => {
           </View>
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
-              label="Home"
-              onPress={() => navigation.navigate('Home')}
+              label="Création offre"
+              onPress={() => navigation.navigate('CreateOffer')}
             />
-          </Drawer.Section>
-          <Drawer.Section title="Preferences">
-            <TouchableRipple onPress={() => {}}>
-              <View style={styles.preference}>
-                <Text>Dark Theme</Text>
-                <View pointerEvents="none">
-                  <Switch value={false} />
-                </View>
-              </View>
-            </TouchableRipple>
-            <TouchableRipple onPress={() => {}}>
-              <View style={styles.preference}>
-                <Text>RTL</Text>
-                <View pointerEvents="none">
-                  <Switch value={false} />
-                </View>
-              </View>
-            </TouchableRipple>
+            <DrawerItem
+              label="Liste de mes offres"
+              onPress={() => navigation.navigate('ListOffer')}
+            />
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>
