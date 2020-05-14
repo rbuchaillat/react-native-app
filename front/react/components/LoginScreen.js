@@ -14,7 +14,7 @@ import {
 import imageLogo from '../assets/images/logo-colors.png';
 import {Auth} from '../services/auth';
 
-export const LoginScreen = () => {
+export const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -33,6 +33,7 @@ export const LoginScreen = () => {
     if (response.ok) {
       const sessionContext = JSON.stringify({token: json.token});
       await AsyncStorage.setItem('@storage_session', sessionContext);
+      navigation.navigate('ListOffer');
     } else {
       alert('Email ou Mot de passe incorrect');
     }
@@ -51,6 +52,7 @@ export const LoginScreen = () => {
           value={password}
           onChangeText={handlePasswordChange}
           placeholder={PASSWORD_PLACEHOLDER}
+          secureTextEntry={true}
         />
         <Button label={LOGIN} onPress={() => handlePress()} />
       </View>

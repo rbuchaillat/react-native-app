@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, ActivityIndicator} from 'react-native';
-import {Text} from 'react-native-paper';
+import {Text, Button} from 'react-native-paper';
 
 import {HOME_YELLOW} from '../../config/colors';
 import {isEmpty} from '../../helpers/utility';
+import {AppbarIndex as Appbar} from '../Appbar';
 
-export const ShowOfferScreen = ({route}) => {
+export const ShowOfferScreen = ({route, navigation}) => {
   const {itemId} = route.params;
   console.log(itemId);
 
@@ -24,8 +25,16 @@ export const ShowOfferScreen = ({route}) => {
     </View>
   ) : (
     <View style={styles.root}>
-      <Text style={styles.title}>Offre : {data.name}</Text>
+      <View>
+        <Button
+          icon="arrow-left"
+          style={styles.goBack}
+          onPress={() => navigation.goBack()}
+        />
+        <Text style={styles.title}>Offre : {data.name}</Text>
+      </View>
       <Text>{data.descriptionOffer}</Text>
+      <Appbar />
     </View>
   );
 };
@@ -42,6 +51,12 @@ const styles = StyleSheet.create({
   },
   root: {
     flex: 1,
+  },
+  goBack: {
+    position: 'absolute',
+    left: 15,
+    top: 15,
+    zIndex: 999,
   },
   title: {
     textAlign: 'center',
