@@ -24,19 +24,19 @@ export const RegisterScreen = () => {
   const [type, setType] = useState('');
 
   const handleFirstNameChange = (data) => {
-    setFirstName({firstName: data});
+    setFirstName(data);
   };
 
   const handleLastNameChange = (data) => {
-    setLastName({lastName: data});
+    setLastName(data);
   };
 
   const handleEmailChange = (data) => {
-    setEmail({email: data});
+    setEmail(data);
   };
 
   const handlePasswordChange = (data) => {
-    setPassword({password: data});
+    setPassword(data);
   };
 
   const handleRegisterPress = () => {

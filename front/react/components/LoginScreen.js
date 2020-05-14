@@ -18,11 +18,11 @@ export const LoginScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleEmailChange = (data) => {
-    setEmail({email: data});
+    setEmail(data);
   };
 
   const handlePasswordChange = (data) => {
-    setPassword({password: data});
+    setPassword(data);
   };
 
   const handlePress = async () => {
