@@ -7,6 +7,8 @@ import {HomeScreen} from './components/HomeScreen';
 import {LoginScreen} from './components/LoginScreen';
 import {RegisterScreen} from './components/RegisterScreen';
 
+import {CreateOfferScreen} from './components/CreateOfferScreen'
+
 const Drawer = createDrawerNavigator();
 
 export const Routes = () => {
@@ -15,9 +17,10 @@ export const Routes = () => {
       drawerContent={({navigation}) => (
         <DrawerContent navigation={navigation} />
       )}>
-      <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="CreateOffer" component={CreateOfferScreen} />
+      {/* <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Login" component={LoginScreen} />
-      <Drawer.Screen name="Register" component={RegisterScreen} />
+      <Drawer.Screen name="Register" component={RegisterScreen} /> */}
     </Drawer.Navigator>
   );
 };
