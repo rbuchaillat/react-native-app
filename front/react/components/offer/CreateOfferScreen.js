@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Picker} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {FormTextInput} from '../common/FormTextInput';
@@ -16,6 +16,7 @@ import {
   WORK_PLACE,
   VALID_FORM_OFFER,
 } from '../../config/strings';
+
 export const CreateOfferScreen = () => {
   const [offerName, setofferName] = useState('');
   const [companyDescription, setcompanyDescription] = useState('');
@@ -23,26 +24,29 @@ export const CreateOfferScreen = () => {
   const [dateContract, setdateContract] = useState(new Date());
   const [contractType, setcontractType] = useState('');
   const [workPlace, setworkPlace] = useState('');
-  const [isButtonDatePickerVisible, setisButtonDatePickerVisible] = useState(
-    false,
-  );
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleOfferName = (data) => {
     setofferName(data);
   };
+
   const handleCompanyDescription = (data) => {
     setcompanyDescription(data);
   };
+
   const handleOfferDescription = (data) => {
     setofferDescription(data);
   };
+
   const handleDateContract = (e, data) => {
-    setisButtonDatePickerVisible(false);
+    setShowDatePicker(false);
     setdateContract(data);
   };
+
   const handleContractType = (data) => {
     setcontractType(data);
   };
+
   const handleWorkPlace = (data) => {
     setworkPlace(data);
   };
@@ -80,7 +84,14 @@ export const CreateOfferScreen = () => {
           placeholder={OFFER_DESC}
           numberOfLines={5}
         />
-        {isButtonDatePickerVisible && (
+        <View>
+          <Button
+            label={BEGIN_DATE}
+            onPress={() => setShowDatePicker(true)}
+            style={styles.buttonDatePicker}
+          />
+        </View>
+        {showDatePicker && (
           <DateTimePicker
             testID="dateTimePicker"
             timeZoneOffsetInMinutes={0}
@@ -91,16 +102,12 @@ export const CreateOfferScreen = () => {
             onChange={handleDateContract}
           />
         )}
-
-        <Button
-          label={BEGIN_DATE}
-          onPress={() => setisButtonDatePickerVisible(true)}
-        />
-        <FormTextInput
-          value={contractType}
-          onChangeText={handleContractType}
-          placeholder={TYPE_CONTRACT}
-        />
+        <Picker
+          selectedValue={contractType}
+          onValueChange={(itemValue) => handleContractType(itemValue)}>
+          <Picker.Item label="CDD" value="CDD" />
+          <Picker.Item label="CDI" value="CDI" />
+        </Picker>
         <FormTextInput
           value={workPlace}
           onChangeText={handleWorkPlace}
@@ -128,10 +135,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     width: '80%',
-  },
-  radioButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: 20,
   },
 });
