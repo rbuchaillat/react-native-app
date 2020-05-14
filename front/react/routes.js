@@ -9,6 +9,7 @@ import {LoginScreen} from './components/LoginScreen';
 import {RegisterScreen} from './components/RegisterScreen';
 import {ListOfferScreen} from './components/offer/ListOfferScreen';
 import {CreateOfferScreen} from './components/offer/CreateOfferScreen';
+import {ShowOfferScreen} from './components/offer/ShowOfferScreen';
 import {getSessionStorage} from './context/session';
 
 const Drawer = createDrawerNavigator();
@@ -32,6 +33,7 @@ export const Routes = () => {
       )}>
       <Drawer.Screen name="ListOffer" component={ListOfferScreen} />
       <Drawer.Screen name="CreateOffer" component={CreateOfferScreen} />
+      <Drawer.Screen name="ShowOffer" component={ShowOfferScreen} />
     </Drawer.Navigator>
   ) : (
     <Stack.Navigator
