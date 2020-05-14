@@ -1,32 +1,50 @@
 /* eslint-disable prettier/prettier */
-import React, {useState } from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {FormTextInput} from '../common/FormTextInput';
 import {Button} from '../common/Button';
 import {WHITE} from '../../config/colors';
-import { SUSCRIBE_OFFER, OFFER_DESC, OFFER_NAME, COMPANY_DESC, BEGIN_DATE, TYPE_CONTRACT, WORK_PLACE, VALID_FORM_OFFER } from '../../config/strings'
+import {
+  SUSCRIBE_OFFER,
+  OFFER_DESC,
+  OFFER_NAME,
+  COMPANY_DESC,
+  BEGIN_DATE,
+  TYPE_CONTRACT,
+  WORK_PLACE,
+  VALID_FORM_OFFER,
+} from '../../config/strings';
 export const CreateOfferScreen = () => {
   const [offerName, setofferName] = useState('');
   const [companyDescription, setcompanyDescription] = useState('');
   const [offerDescription, setofferDescription] = useState('');
+  const [dateContract, setdateContract] = useState(new Date());
   const [contractType, setcontractType] = useState('');
   const [workPlace, setworkPlace] = useState('');
+  const [isButtonDatePickerVisible, setisButtonDatePickerVisible] = useState(
+    false,
+  );
 
   const handleOfferName = (data) => {
-      setofferName({offerName: data});
+    setofferName(data);
   };
   const handleCompanyDescription = (data) => {
-      setcompanyDescription({companyDescription: data});
+    setcompanyDescription(data);
   };
   const handleOfferDescription = (data) => {
-      setofferDescription({offerDescription: data});
+    setofferDescription(data);
+  };
+  const handleDateContract = (e, data) => {
+    setisButtonDatePickerVisible(false);
+    setdateContract(data);
   };
   const handleContractType = (data) => {
-      setcontractType({contractType: data});
+    setcontractType(data);
   };
   const handleWorkPlace = (data) => {
-      setworkPlace({workPlace: data});
+    setworkPlace(data);
   };
 
   const handleValidatePress = () => {
@@ -35,11 +53,11 @@ export const CreateOfferScreen = () => {
       offerName,
       companyDescription,
       offerDescription,
+      dateContract,
       contractType,
       workPlace,
     );
   };
-  
 
   return (
     <View style={styles.container}>
@@ -62,16 +80,32 @@ export const CreateOfferScreen = () => {
           placeholder={OFFER_DESC}
           numberOfLines={5}
         />
+        {isButtonDatePickerVisible && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            timeZoneOffsetInMinutes={0}
+            value={dateContract}
+            mode="date"
+            is24Hour={true}
+            display="default"
+            onChange={handleDateContract}
+          />
+        )}
+
+        <Button
+          label={BEGIN_DATE}
+          onPress={() => setisButtonDatePickerVisible(true)}
+        />
         <FormTextInput
           value={contractType}
           onChangeText={handleContractType}
           placeholder={TYPE_CONTRACT}
-        />        
+        />
         <FormTextInput
           value={workPlace}
           onChangeText={handleWorkPlace}
           placeholder={WORK_PLACE}
-      />
+        />
         <Button label={VALID_FORM_OFFER} onPress={handleValidatePress} />
       </View>
     </View>
