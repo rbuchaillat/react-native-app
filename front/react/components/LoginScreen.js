@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {Image, View, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {FormTextInput} from './common/FormTextInput';
 import {Button} from './common/Button';
@@ -11,11 +12,8 @@ import {
   LOGIN,
 } from '../config/strings';
 import imageLogo from '../assets/images/logo-colors.png';
-import {getSessionStorage} from '../context/session';
 
 export const LoginScreen = () => {
-  console.log(getSessionStorage());
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,8 +25,9 @@ export const LoginScreen = () => {
     setPassword({password: data});
   };
 
-  const handlePress = () => {
-    console.log('press login');
+  const handlePress = async () => {
+    const sessionContext = JSON.stringify({token: 'test'});
+    await AsyncStorage.setItem('@storage_session', sessionContext);
   };
 
   return (
@@ -45,7 +44,7 @@ export const LoginScreen = () => {
           onChangeText={handlePasswordChange}
           placeholder={PASSWORD_PLACEHOLDER}
         />
-        <Button label={LOGIN} onPress={() => handlePress} />
+        <Button label={LOGIN} onPress={() => handlePress()} />
       </View>
     </View>
   );

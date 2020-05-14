@@ -12,16 +12,17 @@ import {
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
 
-export function DrawerContent(props) {
+export const DrawerContent = (props) => {
   const {navigation} = props;
 
-  const signOut = () => {
-    console.log('signOut');
+  const logout = async () => {
+    await AsyncStorage.removeItem('@storage_session');
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.root}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
@@ -77,17 +78,20 @@ export function DrawerContent(props) {
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
-          label="Sign Out"
+          label="Déconnexion"
           onPress={() => {
-            signOut();
+            logout();
           }}
         />
       </Drawer.Section>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   drawerContent: {
     flex: 1,
   },
