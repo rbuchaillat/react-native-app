@@ -12,11 +12,6 @@ use app\Controller\UserController;
  *     itemOperations={
  *          "get",
  *          "delete",
- *          "email_confirmation"={
-*              "method"="PATCH",
-*              "path"="/users/{id}/confirm/{confirmationToken}",
-*              "controller"=EmailConfirmationController::class
-*          },
  *          "userValidation"={
  *             "method"="GET",
  *             "path"="/userValidation/{token}",
