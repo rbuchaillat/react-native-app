@@ -3,14 +3,20 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Controller\UserController;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use app\Controller\UserController;
 
 /**
  * @ApiResource(
  *     itemOperations={
+ *          "get",
+ *          "delete",
+ *          "email_confirmation"={
+*              "method"="PATCH",
+*              "path"="/users/{id}/confirm/{confirmationToken}",
+*              "controller"=EmailConfirmationController::class
+*          },
  *          "userValidation"={
  *             "method"="GET",
  *             "path"="/userValidation/{token}",
@@ -31,7 +37,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="`user`")
- */
+*/
 class User implements UserInterface
 {
     /**
@@ -56,6 +62,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $isActiv = false;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Token;
 
     public function getId(): ?int
     {
@@ -133,5 +149,29 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getIsActiv(): ?bool
+    {
+        return $this->isActiv;
+    }
+
+    public function setIsActiv(bool $isActiv): self
+    {
+        $this->isActiv = $isActiv;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->Token;
+    }
+
+    public function setToken(string $Token): self
+    {
+        $this->Token = $Token;
+
+        return $this;
     }
 }
