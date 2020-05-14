@@ -12,6 +12,7 @@ import {
   LOGIN,
 } from '../config/strings';
 import imageLogo from '../assets/images/logo-colors.png';
+import {Auth} from '../services/auth';
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -26,8 +27,15 @@ export const LoginScreen = () => {
   };
 
   const handlePress = async () => {
-    const sessionContext = JSON.stringify({token: 'test'});
-    await AsyncStorage.setItem('@storage_session', sessionContext);
+    let response = await Auth.login(email, password);
+    let json = await response.json();
+
+    if (response.ok) {
+      const sessionContext = JSON.stringify({token: json.token});
+      await AsyncStorage.setItem('@storage_session', sessionContext);
+    } else {
+      alert('Email ou Mot de passe incorrect');
+    }
   };
 
   return (
