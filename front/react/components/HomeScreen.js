@@ -1,72 +1,139 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect} from 'react';
-import {Image, View, StyleSheet} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import {Button} from 'react-native-paper';
+import * as Animatable from 'react-native-animatable';
 
-import {HOME_YELLOW, LOGIN_BLUE, REGISTER_RED} from '../config/colors';
+import {
+  HOME_YELLOW,
+  LOGIN_BLUE,
+  REGISTER_RED,
+  WHITE,
+  BLACK,
+} from '../config/colors';
 import {LOGIN, REGISTER} from '../config/strings';
 import imageLogo from '../assets/images/logo-white.png';
 
 export const HomeScreen = ({navigation}) => {
-  useEffect(() => {
-    const fetchData = async () => {
-      let response = await fetch('https://localhost:8443/users');
-      let json = await response.json();
-      console.log(json);
-    };
-    fetchData();
-  }, []);
-
   return (
-    <View style={styles.root}>
-      <View style={styles.main}>
-        <Image source={imageLogo} style={styles.logo} />
+    <View style={styles.container}>
+      <StatusBar backgroundColor="#000" barStyle="light-content" />
+      <View style={styles.header}>
+        <Animatable.Image
+          animation="bounceIn"
+          duraton="1500"
+          source={imageLogo}
+          style={styles.logo}
+          resizeMode="stretch"
+        />
       </View>
-      <Button
-        style={styles.buttonLogin}
-        mode="contained"
-        onPress={() => navigation.navigate('Login')}>
-        {LOGIN}
-      </Button>
-      <Button
-        style={styles.buttonRegister}
-        mode="contained"
-        onPress={() => navigation.navigate('Register')}>
-        {REGISTER}
-      </Button>
+      <Animatable.View
+        style={[
+          styles.footer,
+          {
+            backgroundColor: WHITE,
+          },
+        ]}
+        animation="fadeInUpBig">
+        <Text
+          style={[
+            styles.title,
+            {
+              color: BLACK,
+            },
+          ]}>
+          Hello world!
+        </Text>
+        <Text style={styles.text}>
+          Bienvenue sur notre application de recrutement!
+        </Text>
+        <Text style={styles.text}>
+          Application développée par Rémi, Lavan, Najla et Samy.
+        </Text>
+        <View style={styles.buttons}>
+          <View style={styles.button}>
+            <Button
+              style={[
+                styles.buttonAuth,
+                {
+                  backgroundColor: LOGIN_BLUE,
+                },
+              ]}
+              mode="contained"
+              onPress={() => navigation.navigate('Login')}>
+              {LOGIN}
+            </Button>
+          </View>
+          <View style={styles.button}>
+            <Button
+              style={[
+                styles.buttonAuth,
+                {
+                  backgroundColor: REGISTER_RED,
+                },
+              ]}
+              mode="contained"
+              onPress={() => navigation.navigate('Register')}>
+              {REGISTER}
+            </Button>
+          </View>
+        </View>
+      </Animatable.View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
+  container: {
     flex: 1,
-    alignItems: 'stretch',
-  },
-  main: {
-    flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: HOME_YELLOW,
   },
+
+  header: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   logo: {
     flex: 1,
     width: '30%',
     resizeMode: 'contain',
     alignSelf: 'center',
   },
-  buttonLogin: {
-    flexShrink: 1,
-    justifyContent: 'center',
-    height: 70,
-    borderRadius: 0,
-    backgroundColor: LOGIN_BLUE,
+
+  footer: {
+    flex: 0.5,
+    backgroundColor: WHITE,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingVertical: 50,
+    paddingHorizontal: 50,
   },
-  buttonRegister: {
-    flexShrink: 1,
+
+  title: {
+    color: '#05375a',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  text: {
+    color: 'grey',
+  },
+  buttons: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
-    height: 70,
-    borderRadius: 0,
-    backgroundColor: REGISTER_RED,
+    marginTop: 40,
+  },
+  button: {
+    padding: 10,
+  },
+  buttonAuth: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    width: 130,
+    height: 40,
   },
 });
