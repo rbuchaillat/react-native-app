@@ -44,8 +44,8 @@ export const HomeScreen = ({navigation}) => {
           ]}>
           Suvenirnica
         </Text>
-        <Text style={styles.text}>L'application de recrutement du moment.</Text>
-        <Text style={styles.text}>#Numéro 1 du recrutement</Text>
+        <Text style={styles.text}>L'application numero #1 de recrutement du moment.</Text>
+        <Text style={styles.text}>Développé par 4 étudiants de l'ESGI: Rémi, Lavan, Najla et Samy.</Text>
         <View style={styles.buttons}>
           <View style={styles.button}>
             <Button
