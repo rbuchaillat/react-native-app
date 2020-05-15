@@ -42,28 +42,11 @@ export const HomeScreen = ({navigation}) => {
               color: BLACK,
             },
           ]}>
-          Gestion de recrutement
+          Suvenirnica
         </Text>
-        <Text style={styles.text}>
-          Bienvenue sur notre application de recrutement!
-        </Text>
-        <Text style={styles.text}>
-          Application développée par Rémi, Lavan, Najla et Samy.
-        </Text>
+        <Text style={styles.text}>L'application de recrutement du moment.</Text>
+        <Text style={styles.text}>#Numéro 1 du recrutement</Text>
         <View style={styles.buttons}>
-          <View style={styles.button}>
-            <Button
-              style={[
-                styles.buttonAuth,
-                {
-                  backgroundColor: LOGIN_BLUE,
-                },
-              ]}
-              mode="contained"
-              onPress={() => navigation.navigate('Login')}>
-              {LOGIN}
-            </Button>
-          </View>
           <View style={styles.button}>
             <Button
               style={[
@@ -75,6 +58,19 @@ export const HomeScreen = ({navigation}) => {
               mode="contained"
               onPress={() => navigation.navigate('Register')}>
               {REGISTER}
+            </Button>
+          </View>
+          <View style={styles.button}>
+            <Button
+              style={[
+                styles.buttonAuth,
+                {
+                  backgroundColor: LOGIN_BLUE,
+                },
+              ]}
+              mode="contained"
+              onPress={() => navigation.navigate('Login')}>
+              {LOGIN}
             </Button>
           </View>
         </View>
@@ -101,9 +97,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     alignSelf: 'center',
   },
-
   footer: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: WHITE,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -127,7 +122,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    padding: 2
+    padding: 2,
   },
   buttonAuth: {
     justifyContent: 'center',

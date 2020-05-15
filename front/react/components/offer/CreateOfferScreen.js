@@ -12,10 +12,10 @@ import {
   OFFER_NAME,
   COMPANY_DESC,
   BEGIN_DATE,
-  TYPE_CONTRACT,
   WORK_PLACE,
   VALID_FORM_OFFER,
 } from '../../config/strings';
+import {AppbarIndex as Appbar} from '../Appbar';
 
 export const CreateOfferScreen = () => {
   const [offerName, setofferName] = useState('');
@@ -115,6 +115,7 @@ export const CreateOfferScreen = () => {
         />
         <Button label={VALID_FORM_OFFER} onPress={handleValidatePress} />
       </View>
+      <Appbar />
     </View>
   );
 };

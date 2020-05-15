@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
-const APP_URL = __DEV__ ? 'https://localhost:8443' : 'heroku';
+const APP_URL = __DEV__
+  ? 'https://localhost:8443'
+  : 'https://dry-beach-13977.herokuapp.com';
 
 export const requests = {
   get: (url) =>

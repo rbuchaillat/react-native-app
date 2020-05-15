@@ -4,6 +4,7 @@ import {Text, View, StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
 
 import {HOME_YELLOW, DODGER_BLUE} from '../../config/colors';
+import {AppbarIndex as Appbar} from '../Appbar';
 
 export const ListOfferScreen = ({navigation}) => {
   const [data, setData] = useState([]);
@@ -38,6 +39,7 @@ export const ListOfferScreen = ({navigation}) => {
       ) : (
         <Text>Aucune donné ...</Text>
       )}
+      <Appbar />
     </View>
   );
 };

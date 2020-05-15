@@ -8,28 +8,19 @@ import {FormTextInput} from './common/FormTextInput';
 import {WHITE} from '../config/colors';
 import {
   REGISTER,
-  LASTNAME_PLACEHOLDER,
-  FIRSTNAME_PLACEHOLDER,
   EMAIL_PLACEHOLDER,
   PASSWORD_PLACEHOLDER,
   RECRUITER,
   CANDIDATE,
+  PASSWORD_CONFIRM_PLACEHOLDER,
 } from '../config/strings';
+import {Auth} from '../services/auth';
 
-export const RegisterScreen = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+export const RegisterScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [type, setType] = useState('');
-
-  const handleFirstNameChange = (data) => {
-    setFirstName(data);
-  };
-
-  const handleLastNameChange = (data) => {
-    setLastName(data);
-  };
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [role, setRole] = useState('');
 
   const handleEmailChange = (data) => {
     setEmail(data);
@@ -39,31 +30,28 @@ export const RegisterScreen = () => {
     setPassword(data);
   };
 
-  const handleRegisterPress = () => {
-    console.log(
-      'Login button pressed : ',
-      firstName,
-      lastName,
-      email,
-      password,
-      type,
-    );
+  const handleConfirmPasswordChange = (data) => {
+    setPasswordConfirm(data);
+  };
+
+  const handleRegisterPress = async () => {
+    if (password === passwordConfirm) {
+      let response = await Auth.register(email, [role], password);
+
+      if (response.ok) {
+        navigation.navigate('Login');
+      } else {
+        alert('Inscription impossible');
+      }
+    } else {
+      alert('mot de passe différent');
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
         <Text style={styles.text}>{REGISTER}</Text>
-        <FormTextInput
-          value={lastName}
-          onChangeText={handleLastNameChange}
-          placeholder={LASTNAME_PLACEHOLDER}
-        />
-        <FormTextInput
-          value={firstName}
-          onChangeText={handleFirstNameChange}
-          placeholder={FIRSTNAME_PLACEHOLDER}
-        />
         <FormTextInput
           value={email}
           onChangeText={handleEmailChange}
@@ -75,21 +63,27 @@ export const RegisterScreen = () => {
           placeholder={PASSWORD_PLACEHOLDER}
           secureTextEntry={true}
         />
+        <FormTextInput
+          value={passwordConfirm}
+          onChangeText={handleConfirmPasswordChange}
+          placeholder={PASSWORD_CONFIRM_PLACEHOLDER}
+          secureTextEntry={true}
+        />
         <View style={styles.radioButton}>
           <Text>{RECRUITER}</Text>
           <RadioButton
             value="recruiter"
-            status={type === 'recruiter' ? 'checked' : 'unchecked'}
+            status={role === 'recruiter' ? 'checked' : 'unchecked'}
             onPress={() => {
-              setType('recruiter');
+              setRole('recruiter');
             }}
           />
           <Text>{CANDIDATE}</Text>
           <RadioButton
             value="candidate"
-            status={type === 'candidate' ? 'checked' : 'unchecked'}
+            status={role === 'candidate' ? 'checked' : 'unchecked'}
             onPress={() => {
-              setType('candidate');
+              setRole('candidate');
             }}
           />
         </View>
