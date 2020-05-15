@@ -1,30 +1,26 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {StatusBar} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {RootNavigator} from './react/routes';
+import {Routes} from './react/routes';
+import {SessionContext, getSessionStorage} from './react/context/session';
 
 const App = () => {
+  const [session, setSession] = useState(getSessionStorage());
+  const contextValue = {session, setSession};
+
   return (
-    <>
+    <SessionContext.Provider value={contextValue}>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.SafeAreaView}>
-        <PaperProvider>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
-        </PaperProvider>
-      </SafeAreaView>
-    </>
+      <PaperProvider>
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
+      </PaperProvider>
+    </SessionContext.Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  SafeAreaView: {
-    flex: 1,
-  },
-});
 
 export default App;
