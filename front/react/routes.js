@@ -7,65 +7,69 @@ import {View, StyleSheet} from 'react-native';
 import {HomeScreen} from './components/HomeScreen';
 import {LoginScreen} from './components/LoginScreen';
 import {RegisterScreen} from './components/RegisterScreen';
-import {ListOfferScreen} from './components/offer/ListOfferScreen';
+import {ListOfferRecruiterScreen} from './components/offer/ListOfferRecruiterScreen';
+import {ListOfferCandidateScreen} from './components/offer/ListOfferCandidateScreen';
 import {CreateOfferScreen} from './components/offer/CreateOfferScreen';
 import {ShowOfferScreen} from './components/offer/ShowOfferScreen';
 import {InvitationOfferScreen} from './components/offer/InvitationOfferScreen';
 import {ApplicationOfferScreen} from './components/offer/ApplicationOfferScreen';
-import {getSessionStorage} from './context/session';
+import {getSessionStorage, getUserStorage} from './context/session';
 
 const Stack = createStackNavigator();
 
 export const Routes = () => {
-  const jwt_decode = require('jwt-decode');
-  const [auth, setAuth] = useState(false);
-  const [role, setRole] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [initialRouteName, setInitialRouteName] = useState(false);
 
   useEffect(() => {
     const setData = async () => {
       setLoading(true);
       const sessionContext = await getSessionStorage();
-      if (sessionContext.token) {
-        setRole(jwt_decode(sessionContext.token).roles[0]);
+      const userContext = await getUserStorage();
+
+      if (sessionContext.auth) {
+        if (userContext.roles[0] === 'recruiter') {
+          setInitialRouteName('ListOfferRecruiter');
+        } else {
+          setInitialRouteName('ListOfferCandidate');
+        }
+      } else {
+        setInitialRouteName('Home');
       }
-      setAuth(sessionContext.auth);
+
       setLoading(false);
     };
     setData();
-  }, [jwt_decode]);
+  }, []);
 
-  return loading ? (
+  return loading && !initialRouteName ? (
     <View style={[styles.container, styles.horizontal]}>
       <ActivityIndicator size="large" color="#0000ff" />
     </View>
   ) : (
     <Stack.Navigator
-      initialRouteName={auth ? 'ListOffer' : 'Home'}
+      initialRouteName={initialRouteName}
       screenOptions={{
         headerShown: false,
       }}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="ListOffer">
-        {(props) => <ListOfferScreen {...props} extraData={role} />}
-      </Stack.Screen>
-      {role === 'recruiter' ? (
-        <>
-          <Stack.Screen name="CreateOffer" component={CreateOfferScreen} />
-          <Stack.Screen name="ShowOffer" component={ShowOfferScreen} />
-          <Stack.Screen
-            name="InvitationOffer"
-            component={InvitationOfferScreen}
-          />
-        </>
-      ) : (
-        <Stack.Screen
-          name="ApplicationOffer"
-          component={ApplicationOfferScreen}
-        />
-      )}
+      <Stack.Screen
+        name="ListOfferRecruiter"
+        component={ListOfferRecruiterScreen}
+      />
+      <Stack.Screen
+        name="ListOfferCandidate"
+        component={ListOfferCandidateScreen}
+      />
+      <Stack.Screen name="ShowOffer" component={ShowOfferScreen} />
+      <Stack.Screen name="CreateOffer" component={CreateOfferScreen} />
+      <Stack.Screen name="InvitationOffer" component={InvitationOfferScreen} />
+      <Stack.Screen
+        name="ApplicationOffer"
+        component={ApplicationOfferScreen}
+      />
     </Stack.Navigator>
   );
 };

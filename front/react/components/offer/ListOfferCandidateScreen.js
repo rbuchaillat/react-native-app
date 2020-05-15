@@ -4,12 +4,11 @@ import {Text, View, StyleSheet} from 'react-native';
 import {List, Button} from 'react-native-paper';
 
 import {HOME_YELLOW, DODGER_BLUE} from '../../config/colors';
-import {AppbarRecruiter} from '../AppbarRecruiter';
-import {AppbarCandidate} from '../AppbarCandidate';
 import {Offer} from '../../services/offer';
 import {isEmpty} from '../../helpers/utility';
+import {AppbarCandidate} from '../AppbarCandidate';
 
-export const ListOfferScreen = ({navigation, extraData}) => {
+export const ListOfferCandidateScreen = ({navigation}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -41,6 +40,7 @@ export const ListOfferScreen = ({navigation, extraData}) => {
             onPress={() =>
               navigation.navigate('ShowOffer', {
                 itemId: value.id,
+                role: 'candidate',
               })
             }
           />
@@ -50,7 +50,7 @@ export const ListOfferScreen = ({navigation, extraData}) => {
           <Text>Aucune offre ...</Text>
         </View>
       )}
-      {extraData === 'recruiter' ? <AppbarRecruiter /> : <AppbarCandidate />}
+      <AppbarCandidate />
     </View>
   );
 };

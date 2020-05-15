@@ -18,7 +18,7 @@ export const AppbarRecruiter = () => {
       <Appbar.Action
         titleRef="test"
         icon="pirate"
-        onPress={() => navigation.navigate('ListOffer')}
+        onPress={() => navigation.navigate('ListOfferRecruiter')}
       />
       <Appbar.Action
         icon="pencil"

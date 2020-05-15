@@ -18,10 +18,10 @@ export const AppbarCandidate = () => {
       <Appbar.Action
         titleRef="test"
         icon="pirate"
-        onPress={() => navigation.navigate('ListOffer')}
+        onPress={() => navigation.navigate('ListOfferCandidate')}
       />
       <Appbar.Action
-        icon="pirate"
+        icon="access-point"
         onPress={() => navigation.navigate('ApplicationOffer')}
       />
       <Appbar.Action

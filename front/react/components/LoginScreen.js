@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import {
   StatusBar,
   Text,
-  Image,
   View,
   StyleSheet,
   TouchableOpacity,
@@ -21,13 +20,13 @@ import {
   PASSWORD_PLACEHOLDER,
   VALID_FORM_OFFER,
 } from '../config/strings';
-import imageLogo from '../assets/images/logo-colors.png';
 import {Auth} from '../services/auth';
 
 export const LoginScreen = ({navigation}) => {
+  const jwt_decode = require('jwt-decode');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [secureTextEntry, setsecureTextEntry] = useState(true)
+  const [secureTextEntry, setsecureTextEntry] = useState(true);
 
   const handleEmailChange = (data) => {
     setEmail(data);
@@ -39,7 +38,7 @@ export const LoginScreen = ({navigation}) => {
 
   const handleSecureTextEntry = (data) => {
     setsecureTextEntry(!secureTextEntry);
-  }
+  };
 
   const handlePress = async () => {
     const response = await Auth.login(email, password);
@@ -48,7 +47,10 @@ export const LoginScreen = ({navigation}) => {
     if (response.ok) {
       const sessionContext = JSON.stringify({token: json.token});
       await AsyncStorage.setItem('@storage_session', sessionContext);
-      navigation.navigate('ListOffer');
+      const paylaod = jwt_decode(json.token);
+      paylaod.roles[0] === 'recruiter'
+        ? navigation.navigate('ListOfferRecruiter')
+        : navigation.navigate('ListOfferCandidate');
     } else {
       alert('Email ou Mot de passe incorrect');
     }

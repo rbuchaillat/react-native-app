@@ -10,7 +10,16 @@ export const getSessionStorage = async () => {
     : {auth: true, token: JSON.parse(sessionStorage).token};
 };
 
+export const getUserStorage = async () => {
+  const jwt_decode = require('jwt-decode');
+  const sessionContext = await getSessionStorage();
+
+  return sessionContext.token !== '' ? jwt_decode(sessionContext.token) : {};
+};
+
 export const SessionContext = createContext({
   session: {auth: false, token: ''},
   setSession: () => {},
+  user: {},
+  setUser: () => {},
 });
