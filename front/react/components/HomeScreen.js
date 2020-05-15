@@ -17,7 +17,7 @@ import imageLogo from '../assets/images/logo-white.png';
 export const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#000" barStyle="light-content" />
+      <StatusBar backgroundColor={BLACK} barStyle="light-content" />
       <View style={styles.header}>
         <Animatable.Image
           animation="bounceIn"
@@ -44,8 +44,8 @@ export const HomeScreen = ({navigation}) => {
           ]}>
           Suvenirnica
         </Text>
-        <Text style={styles.text}>L'application de recrutement du moment.</Text>
-        <Text style={styles.text}>#Numéro 1 du recrutement</Text>
+        <Text style={styles.text}>L'application numero #1 de recrutement du moment.</Text>
+        <Text style={styles.text}>Développé par 4 étudiants de l'ESGI: Rémi, Lavan, Najla et Samy.</Text>
         <View style={styles.buttons}>
           <View style={styles.button}>
             <Button
