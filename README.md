@@ -1,4 +1,4 @@
-# Suvernica, RH Candidature App
+# Suvenirnica, RH Candidature App
 
 
 Front :
