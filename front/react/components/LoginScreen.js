@@ -27,8 +27,8 @@ export const LoginScreen = ({navigation}) => {
   };
 
   const handlePress = async () => {
-    let response = await Auth.login(email, password);
-    let json = await response.json();
+    const response = await Auth.login(email, password);
+    const json = await response.json();
 
     if (response.ok) {
       const sessionContext = JSON.stringify({token: json.token});

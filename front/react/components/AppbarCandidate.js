@@ -5,7 +5,7 @@ import {StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const AppbarIndex = () => {
+export const AppbarCandidate = () => {
   const navigation = useNavigation();
 
   const handleLogout = async () => {
@@ -21,8 +21,8 @@ export const AppbarIndex = () => {
         onPress={() => navigation.navigate('ListOffer')}
       />
       <Appbar.Action
-        icon="pencil"
-        onPress={() => navigation.navigate('CreateOffer')}
+        icon="pirate"
+        onPress={() => navigation.navigate('ApplicationOffer')}
       />
       <Appbar.Action
         icon="logout"

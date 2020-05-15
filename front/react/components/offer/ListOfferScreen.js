@@ -1,33 +1,42 @@
 /* eslint-disable prettier/prettier */
 import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {List} from 'react-native-paper';
+import {List, Button} from 'react-native-paper';
 
 import {HOME_YELLOW, DODGER_BLUE} from '../../config/colors';
-import {AppbarIndex as Appbar} from '../Appbar';
+import {AppbarRecruiter} from '../AppbarRecruiter';
+import {AppbarCandidate} from '../AppbarCandidate';
+import {Offer} from '../../services/offer';
+import {isEmpty} from '../../helpers/utility';
 
-export const ListOfferScreen = ({navigation}) => {
+export const ListOfferScreen = ({navigation, extraData}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const fakeData = [
-      {id: 1, name: 'TEST', descriptionOffer: 'test test test'},
-      {id: 2, name: 'TEST', descriptionOffer: 'test test test'},
-    ];
-    setData(fakeData);
+    const fetchData = async () => {
+      const response = await Offer.list();
+      const json = await response.json();
+      setData(json['hydra:member']);
+    };
+    fetchData();
   }, []);
 
   return (
     <View style={styles.root}>
       <Text style={styles.title}>Mes offres</Text>
-      {data.length > 0 ? (
+      {data !== undefined && !isEmpty(data) ? (
         data.map((value, index) => (
           <List.Item
             key={index}
             title={value.name}
-            description={value.descriptionOffer}
+            description={value.descriptionOffre}
             left={(props) => (
               <List.Icon {...props} icon="firebase" color={DODGER_BLUE} />
+            )}
+            right={(props) => (
+              <Button {...props} style={styles.button}>
+                Voir
+              </Button>
             )}
             onPress={() =>
               navigation.navigate('ShowOffer', {
@@ -37,9 +46,11 @@ export const ListOfferScreen = ({navigation}) => {
           />
         ))
       ) : (
-        <Text>Aucune donné ...</Text>
+        <View style={styles.noData}>
+          <Text>Aucune offre ...</Text>
+        </View>
       )}
-      <Appbar />
+      {extraData === 'recruiter' ? <AppbarRecruiter /> : <AppbarCandidate />}
     </View>
   );
 };
@@ -55,5 +66,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     backgroundColor: HOME_YELLOW,
     textTransform: 'uppercase',
+  },
+  button: {
+    justifyContent: 'center',
+  },
+  noData: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

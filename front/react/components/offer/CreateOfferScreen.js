@@ -15,27 +15,28 @@ import {
   WORK_PLACE,
   VALID_FORM_OFFER,
 } from '../../config/strings';
-import {AppbarIndex as Appbar} from '../Appbar';
+import {AppbarRecruiter as Appbar} from '../AppbarRecruiter';
+import {Offer} from '../../services/offer';
 
-export const CreateOfferScreen = () => {
-  const [offerName, setofferName] = useState('');
-  const [companyDescription, setcompanyDescription] = useState('');
-  const [offerDescription, setofferDescription] = useState('');
+export const CreateOfferScreen = ({navigation}) => {
+  const [name, setName] = useState('');
+  const [descriptionEntreprise, setDescriptionEntreprise] = useState('');
+  const [descriptionOffre, setDescriptionOffre] = useState('');
   const [dateContract, setdateContract] = useState(new Date());
-  const [contractType, setcontractType] = useState('');
+  const [contractType, setcontractType] = useState('CDD');
   const [workPlace, setworkPlace] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const handleOfferName = (data) => {
-    setofferName(data);
+  const handleName = (data) => {
+    setName(data);
   };
 
-  const handleCompanyDescription = (data) => {
-    setcompanyDescription(data);
+  const handleDescriptionOffre = (data) => {
+    setDescriptionEntreprise(data);
   };
 
   const handleOfferDescription = (data) => {
-    setofferDescription(data);
+    setDescriptionOffre(data);
   };
 
   const handleDateContract = (e, data) => {
@@ -51,16 +52,22 @@ export const CreateOfferScreen = () => {
     setworkPlace(data);
   };
 
-  const handleValidatePress = () => {
-    console.log(
-      'Validate button pressed : ',
-      offerName,
-      companyDescription,
-      offerDescription,
+  const handleValidatePress = async () => {
+    const response = await Offer.create(
+      name,
+      descriptionEntreprise,
+      descriptionOffre,
       dateContract,
       contractType,
       workPlace,
     );
+    const json = await response.json();
+
+    if (response.ok) {
+      navigation.navigate('InvitationOffer', {offer: json});
+    } else {
+      alert('Erreur de création');
+    }
   };
 
   return (
@@ -68,18 +75,18 @@ export const CreateOfferScreen = () => {
       <View style={styles.form}>
         <Text style={styles.text}>{SUSCRIBE_OFFER}</Text>
         <FormTextInput
-          value={offerName}
-          onChangeText={handleOfferName}
+          value={name}
+          onChangeText={handleName}
           placeholder={OFFER_NAME}
         />
         <FormTextInput
-          value={companyDescription}
-          onChangeText={handleCompanyDescription}
+          value={descriptionEntreprise}
+          onChangeText={handleDescriptionOffre}
           placeholder={COMPANY_DESC}
           numberOfLines={5}
         />
         <FormTextInput
-          value={offerDescription}
+          value={descriptionOffre}
           onChangeText={handleOfferDescription}
           placeholder={OFFER_DESC}
           numberOfLines={5}

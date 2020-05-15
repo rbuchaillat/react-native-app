@@ -36,7 +36,7 @@ export const RegisterScreen = ({navigation}) => {
 
   const handleRegisterPress = async () => {
     if (password === passwordConfirm) {
-      let response = await Auth.register(email, [role], password);
+      const response = await Auth.register(email, [role], password);
 
       if (response.ok) {
         navigation.navigate('Login');

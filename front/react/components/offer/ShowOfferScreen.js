@@ -5,19 +5,21 @@ import {Text, Button} from 'react-native-paper';
 
 import {HOME_YELLOW} from '../../config/colors';
 import {isEmpty} from '../../helpers/utility';
-import {AppbarIndex as Appbar} from '../Appbar';
+import {AppbarRecruiter as Appbar} from '../AppbarRecruiter';
+import {Offer} from '../../services/offer';
 
 export const ShowOfferScreen = ({route, navigation}) => {
   const {itemId} = route.params;
-  console.log(itemId);
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    //id de l'offer -> itemId
-    const fakeData = {id: 1, name: 'TEST', descriptionOffer: 'test test test'};
-    setData(fakeData);
-  }, []);
+    const fetchData = async () => {
+      const response = await Offer.show(itemId);
+      const json = await response.json();
+      setData(json);
+    };
+    fetchData();
+  }, [itemId]);
 
   return isEmpty(data) ? (
     <View style={[styles.container, styles.horizontal]}>
@@ -33,7 +35,28 @@ export const ShowOfferScreen = ({route, navigation}) => {
         />
         <Text style={styles.title}>Offre : {data.name}</Text>
       </View>
-      <Text>{data.descriptionOffer}</Text>
+      <View style={styles.content}>
+        <View style={styles.element}>
+          <Text style={styles.titleItem}>Description de l'offre</Text>
+          <Text style={styles.subtitleItem}>{data.descriptionOffre}</Text>
+        </View>
+        <View style={styles.element}>
+          <Text style={styles.titleItem}>Description de l'entreprise</Text>
+          <Text style={styles.subtitleItem}>{data.descriptionEntreprise}</Text>
+        </View>
+        <View style={styles.element}>
+          <Text style={styles.titleItem}>Date de début</Text>
+          <Text style={styles.subtitleItem}>{data.dateDebut}</Text>
+        </View>
+        <View style={styles.element}>
+          <Text style={styles.titleItem}>Type de contrat</Text>
+          <Text style={styles.subtitleItem}>{data.typeContrat}</Text>
+        </View>
+        <View style={styles.element}>
+          <Text style={styles.titleItem}>Lieu</Text>
+          <Text style={styles.subtitleItem}>{data.lieu}</Text>
+        </View>
+      </View>
       <Appbar />
     </View>
   );
@@ -65,5 +88,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     backgroundColor: HOME_YELLOW,
     textTransform: 'uppercase',
+  },
+  content: {
+    flex: 1,
+  },
+  element: {
+    padding: 15,
+  },
+  titleItem: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  subtitleItem: {
+    fontSize: 18,
   },
 });
