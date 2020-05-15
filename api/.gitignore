@@ -1,3 +1,4 @@
+#/config/jwt/*.pem
 /.env
 /docker-compose.override.yaml
 /docker-compose.override.yml
