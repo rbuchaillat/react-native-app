@@ -40,5 +40,5 @@ docker-compose up -d
 
 ## Production 
 
--  https://dry-beach-13977.herokuapp.com/docs
+-  https://evening-everglades-70237.herokuapp.com/docs
 
